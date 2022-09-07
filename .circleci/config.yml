@@ -14,8 +14,10 @@ jobs:
     executor: my-custom-executor
     steps:
       - checkout
-      - run: |
-          docker-compose -f docker-compose-build.yaml build --parallel
+      - run: docker-compose -f docker-compose-build.yaml build --parallel
+      - run: docker tag udagram-api-feed ahmed0magdy/udagram-api-feed:v1
+      - run: echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USER" --password-stdin
+      - run: docker push ahmed0magdy/udagram-api-feed:v1
 
 workflows:
   my-custom-workflow:
