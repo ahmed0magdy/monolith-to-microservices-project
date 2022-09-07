@@ -2,14 +2,13 @@ version: 2.1
 
 jobs:
   build:
-    docker:    
-      - checkout
-      # Use root level package.json to install dependencies in the frontend app
+    docker:
+    	auth:
+    	  username: megop
+          password: dckr_pat_NFhGPW0RVtjkcwuZbQ8UWu14eOo
       - run:
           name: docker compose
-          command: |
-            docker login -u megop -p dckr_pat_NFhGPW0RVtjkcwuZbQ8UWu14eOo
-            docker-compose -f docker-compose-build.yaml build --parallel       
+          command: docker-compose -f docker-compose-build.yaml build --parallel       
 workflows:
   udagram:
     jobs:
