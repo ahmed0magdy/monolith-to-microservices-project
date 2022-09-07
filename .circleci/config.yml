@@ -3,8 +3,8 @@ version: 2.1
 jobs:
   build:
     docker:
-    	auth:
-    	  username: megop
+      - auth:
+          username: megop
           password: dckr_pat_NFhGPW0RVtjkcwuZbQ8UWu14eOo
       - run:
           name: docker compose
