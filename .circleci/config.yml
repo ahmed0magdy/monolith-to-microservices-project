@@ -4,15 +4,11 @@ orbs:
 
 jobs:
   build:
-    docker:
-      # replace with your preferred image
-      - image: "cimg/node:14.15"
+    docker:s
     steps:
-      - docker/install-docker-compose
-      - checkout
       - run:
           name: docker compose
-          command: docker-compose -f docker-compose-build.yaml build --parallel 
+          command: docker build -t udagram-api-feed ./udagram-api-feed
 
       #- auth:
          # username: megop
