@@ -1,14 +1,22 @@
 version: 2.1
+orbs:
+  docker: circleci/docker@1.7.0
 
 jobs:
-  build:
+  example-job:
     docker:
-      - auth:
-          username: megop
-          password: dckr_pat_NFhGPW0RVtjkcwuZbQ8UWu14eOo
+      # replace with your preferred image
+      - image: "cimg/node:14.15"
+    steps:
+      - docker/install-docker-compose
+      - checkout
       - run:
           name: docker compose
-          command: docker-compose -f docker-compose-build.yaml build --parallel       
+          command: docker-compose -f docker-compose-build.yaml build --parallel 
+
+      #- auth:
+         # username: megop
+          #password: dckr_pat_NFhGPW0RVtjkcwuZbQ8UWu14eOo    
 workflows:
   udagram:
     jobs:
