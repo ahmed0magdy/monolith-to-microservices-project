@@ -9,15 +9,7 @@ jobs:
           name: docker compose
           command: |
             docker login -u megop -p dckr_pat_NFhGPW0RVtjkcwuZbQ8UWu14eOo
-            docker-compose -f docker-compose-build.yaml build --parallel
-  deploy:
-      - checkout
-      - run:
-          name: Deploy App
-          # TODO: Install, build, deploy in both apps
-          command: |
-            echo "# TODO: Install, build, deploy in both apps"
-            
+            docker-compose -f docker-compose-build.yaml build --parallel       
 workflows:
   udagram:
     jobs:
