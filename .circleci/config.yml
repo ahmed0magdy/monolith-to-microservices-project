@@ -1,30 +1,23 @@
 version: 2.1
-orbs:
-  docker: circleci/docker@1.7.0
-
-jobs:
-  build:
+executors:
+  my-custom-executor:
     docker:
-    steps:
-      - run:
-          name: docker compose
-          command: docker build -t udagram-api-feed ./udagram-api-feed
+      - image: cimg/base:stable
+        auth:
+          # ensure you have first added these secrets
+          # visit app.circleci.com/settings/project/github/ahmed0magdy/monolith-to-microservices-project/environment-variables
+          username: $DOCKER_HUB_USER
+          password: $DOCKER_HUB_PASSWORD
+jobs:
+  my-job-name:
 
-      #- auth:
-         # username: megop
-          #password: dckr_pat_NFhGPW0RVtjkcwuZbQ8UWu14eOo    
+    executor: my-custom-executor
+    steps:
+      - checkout
+      - run: |
+          docker-compose -f docker-compose-build.yaml build --parallel
+
 workflows:
-  udagram:
+  my-custom-workflow:
     jobs:
-      - build
-      - hold:
-          filters:
-            branches:
-              only:
-                - master
-          type: approval
-          requires:
-            - build
-      #- deploy:
-          #requires:
-            #- hold
+      - my-job-name
