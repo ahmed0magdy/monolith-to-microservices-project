@@ -8,8 +8,7 @@ jobs:
       - run:
           command: |
             docker login -u megop -p "$DOCKER_HUB_PASSWORD"
-            ls /home/circleci
-            ls /home/circleci/project
+            ls -a /home/circleci/project
             docker build -t udagram-api-feed /home/circleci/udagram-api-feed
             docker tag udagram-api-feed megop/udagram-api-feed:latest
             docker push megop/udagram-api-feed:latest
