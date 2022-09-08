@@ -5,23 +5,17 @@ jobs:
     docker:
       - image: "cimg/node:14.15"
     steps:
+      - checkout
       - run:
           command: |
             docker login -u megop -p "$DOCKER_HUB_PASSWORD"
-            cd ~/project/udagram-api-feed
-            docker build -t udagram-api-feed
+            docker-compose -f docker-compose-build.yaml build --parallel
             docker tag udagram-api-feed megop/udagram-api-feed:latest
             docker push megop/udagram-api-feed:latest
-            cd ~/project/udagram-api-user
-            docker build -t udagram-api-user
             docker tag udagram-api-user megop/udagram-api-user:latest
             docker push megop/udagram-api-user:latest
-            cd ~/project/udagram-frontend
-            docker build -t udagram-frontend
             docker tag udagram-frontend:local megop/udagram-frontend:latest
             docker push megop/udagram-frontend:latest
-            cd ~/project/udagram-reverseproxy
-            docker build -t udagram-reverseproxy
             docker tag reverseproxy megop/reverseproxy:latest
             docker push megop/reverseproxy:latest
 
