@@ -5,8 +5,8 @@ data:
   AWS_PROFILE: default
   AWS_REGION: us-east-1
   JWT_SECRET: testing
-  POSTGRES_DB: postgresdev
-  POSTGRES_HOST: postgresdev.ccra4equlstx.us-east-1.rds.amazonaws.com
-  URL: http://localhost:8100  
+  POSTGRES_DB: postgres
+  POSTGRES_HOST: postgresdevv.ccra4equlstx.us-east-1.rds.amazonaws.com
+  URL: http://localhost:8100
 metadata:
-  name: env-config
+  name: env-configmap

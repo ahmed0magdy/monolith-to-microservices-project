@@ -22,3 +22,10 @@ spec:
             cpu: 500m
           requests:
             cpu: 200m
+        envFrom:
+          - secretRef:
+              name: aws-secret
+          - secretRef:
+              name: env-secret
+          - configMapRef:
+              name: env-configmap
