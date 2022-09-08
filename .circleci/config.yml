@@ -8,8 +8,7 @@ jobs:
       - run:
           command: |
             docker login -u megop -p "$DOCKER_HUB_PASSWORD"
-            ls -a .docker
-            docker build -t udagram-api-feed
+            docker build -t udagram-api-feed 
             docker tag udagram-api-feed megop/udagram-api-feed:latest
             docker push megop/udagram-api-feed:latest
             docker build -t udagram-api-user
