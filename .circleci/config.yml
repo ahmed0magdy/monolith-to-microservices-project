@@ -21,8 +21,8 @@ jobs:
             docker tag udagram-frontend megop/udagram-frontend:latest
             docker push megop/udagram-frontend:latest
             docker build -t udagram-reverseproxy ./udagram-reverseproxy
-            docker tag reverseproxy megop/reverseproxy:latest
-            docker push megop/reverseproxy:latest
+            docker tag udagram-reverseproxy megop/udagram-reverseproxy:latest
+            docker push megop/udagram-reverseproxy:latest
 
 workflows:
   udagram:
