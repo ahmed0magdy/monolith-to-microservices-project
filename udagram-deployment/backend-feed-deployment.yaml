@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend-feed
-        image: docker.io/newthingade/udagram-api-feed
+        image: docker.io/megop/udagram-api-feed
         ports:
         - containerPort: 80
         resources:
