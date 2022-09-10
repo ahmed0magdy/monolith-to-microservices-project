@@ -1,33 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: udagram-reverseproxy
   labels:
-    app: udagram-reverseproxy
+    service: reverseproxy
+  name: reverseproxy
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: udagram-reverseproxy
+      service: reverseproxy
   template:
     metadata:
       labels:
-        app: udagram-reverseproxy
+        service: reverseproxy
     spec:
       containers:
-      - name: udagram-reverseproxy
-        image: megop/udagram-reverseproxy:latest
+      - image: megop/reverseproxy
+        name: reverseproxy
+        imagePullPolicy: Always
         resources:
           requests:
-            memory: "1000Mi"
+            memory: "64Mi"
+            cpu: "250m"
           limits:
-            memory: "2000Mi"
+            memory: "1024Mi"
+            cpu: "500m"
         ports:
         - containerPort: 8080
-        envFrom:
-          - secretRef:
-              name: aws-secret
-          - secretRef:
-              name: env-secret
-          - configMapRef:
-              name: env-config
+      restartPolicy: Always
