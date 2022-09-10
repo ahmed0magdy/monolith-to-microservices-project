@@ -2,30 +2,34 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-user
+  labels:
+    app: backend-user
 spec:
+  replicas: 3
   selector:
     matchLabels:
-      run: backend-user
-  replicas: 2
+      app: backend-user
   template:
     metadata:
       labels:
-        run: backend-user
+        app: backend-user
     spec:
       containers:
-      - name: backend-user
-        image: docker.io/megop/udagram-api-user
-        ports:
-        - containerPort: 80
+      - name: udagram-api-user
+        image: megop/udagram-api-user:latest
         resources:
-          limits:
-            cpu: 500m
           requests:
-            cpu: 200m
+            memory: "1500Mi"
+            cpu: "500m"
+          limits:
+            memory: "2500Mi"
+            cpu: "750m"
+        ports:
+        - containerPort: 8080
         envFrom:
           - secretRef:
               name: aws-secret
           - secretRef:
               name: env-secret
           - configMapRef:
-              name: env-configmap
+              name: env-config
