@@ -12,15 +12,14 @@ jobs:
           command: |
             docker login -u megop -p "$DOCKER_HUB_PASSWORD"
             docker-compose -f docker-compose-build.yaml build --parallel
-            docker tag udagram-api-feed megop/udagram-api-feed:latest
-            docker push megop/udagram-api-feed:latest
-            docker tag udagram-api-user megop/udagram-api-user:latest
-            docker push megop/udagram-api-user:latest
-            docker tag udagram-frontend megop/udagram-frontend:latest
-            docker push megop/udagram-frontend:latest
-            docker tag udagram-reverseproxy megop/udagram-reverseproxy:latest
-            docker push megop/udagram-reverseproxy:latest
-
+            docker tag udagram-api-feed megop/udagram-api-feed:v1
+            docker push megop/udagram-api-feed:v1
+            docker tag udagram-api-user megop/udagram-api-user:v1
+            docker push megop/udagram-api-user:v1
+            docker tag udagram-frontend megop/udagram-frontend:v1
+            docker push megop/udagram-frontend:v1
+            docker tag udagram-reverseproxy megop/udagram-reverseproxy:v1
+            docker push megop/udagram-reverseproxy:v1
 workflows:
   udagram:
     jobs:
