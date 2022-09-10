@@ -15,7 +15,7 @@ spec:
         service: reverseproxy
     spec:
       containers:
-      - image: megop/reverseproxy
+      - image: megop/reverseproxy:v1
         name: reverseproxy
         imagePullPolicy: Always
         resources:

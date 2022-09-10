@@ -15,7 +15,7 @@ spec:
         service: backend-user
     spec:
       containers:
-      - image: megop/udagram-api-user
+      - image: megop/udagram-api-user:v1
         name: backend-user
         imagePullPolicy: Always
         resources:
