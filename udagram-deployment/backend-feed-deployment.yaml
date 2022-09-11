@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: udagram-api-feed
   labels:
-    app: udagram-api-feed
+    service: udagram-api-feed
 spec:
-  replicas: 2
   selector:
     matchLabels:
-      app: udagram-api-feed
+      service: udagram-api-feed
+  replicas: 2
   template:
     metadata:
       labels:
-        app: udagram-api-feed
+        service: udagram-api-feed
     spec:
       containers:
       - name: udagram-api-feed
@@ -24,8 +24,6 @@ spec:
           limits:
             memory: "2500Mi"
             cpu: "750m"
-        ports:
-        - containerPort: 80
         envFrom:
           - secretRef:
               name: aws-secret

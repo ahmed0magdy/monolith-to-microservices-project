@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: udagram-api-user
   labels:
-    app: udagram-api-user
+    service: udagram-api-user
 spec:
-  replicas: 2
   selector:
     matchLabels:
-      app: udagram-api-user
+      service: udagram-api-user
+  replicas: 2
   template:
     metadata:
       labels:
-        app: udagram-api-user
+        service: udagram-api-user
     spec:
       containers:
       - name: udagram-api-user
@@ -24,8 +24,6 @@ spec:
           limits:
             memory: "2500Mi"
             cpu: "750m"
-        ports:
-        - containerPort: 8080
         envFrom:
           - secretRef:
               name: aws-secret
