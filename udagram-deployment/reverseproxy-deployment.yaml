@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reverseproxy
+  labels:
+    service: reverseproxy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: reverseproxy
+  template:
+    metadata:
+      labels:
+        service: reverseproxy
+    spec:
+      containers:
+      - name: reverseproxy
+        image: megop/reverseproxy:v1
+        resources:
+          requests:
+            memory: "1000Mi"
+            cpu: "250m"
+          limits:
+            memory: "2000Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        envFrom:
+          - secretRef:
+              name: aws-secret
+          - secretRef:
+              name: env-secret
+          - configMapRef:
+              name: env-config

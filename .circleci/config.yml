@@ -1,55 +1,26 @@
 version: 2.1
 
 jobs:
-  lint-app:
+  build:
     docker:
-      - image: circleci/node:13.8.0
+      - image: "cimg/node:14.15"
     steps:
-      - checkout
-  build-docker:
-    machine: true
-    steps:
+      - setup_remote_docker:
+          version: 20.10.14
       - checkout
       - run:
-          name: Build docker container for each microservices
           command: |
-            echo "--------- Installing dependencies-----------"
-            sudo curl -LO https://nodejs.org/dist/v18.0.0/node-v18.0.0-linux-x64.tar.xz
-            sudo tar -xvf node-v18.0.0-linux-x64.tar.xz
-            sudo cp -r node-v18.0.0-linux-x64/{bin,include,lib,share} /usr/
-            node --version => v18.0.0
-            sudo apt install nodejs
-
-            echo "--------- The images is Building ------------"
-
-            docker build -t udagram-api-feed ./udagram-api-feed
-            docker tag udagram-api-feed megop/udagram-api-feed:v0
-
-            docker build -t udagram-api-user ./udagram-api-user
-            docker tag udagram-api-user megop/udagram-api-user:v0
-            
-            docker build -t udagram-frontend ./udagram-frontend
-            docker tag udagram-frontend megop/udagram-frontend:v0
-
-            docker build -t reverseproxy ./udagram-reverseproxy
-            docker tag reverseproxy megop/reverseproxy:v0
-
-            echo "-------- All images succesfully built----------"
-
-            echo " ------- login in to hub--------"
-
             docker login -u megop -p "$DOCKER_HUB_PASSWORD"
-
-            echo "-------------- Pushing images to dockerhub-------"
-
-            docker push megop/udagram-api-feed:v0
-            docker push megop/udagram-api-user:v0
-            docker push megop/udagram-frontend:v0
-            docker push megop/reverseproxy:v0
-
+            docker-compose -f docker-compose-build.yaml build --parallel
+            docker tag udagram-api-feed megop/udagram-api-feed:v6
+            docker push megop/udagram-api-feed:v6
+            docker tag udagram-api-user megop/udagram-api-user:v6
+            docker push megop/udagram-api-user:v6
+            docker tag udagram-frontend megop/udagram-frontend:v6
+            docker push megop/udagram-frontend:v6
+            docker tag reverseproxy megop/reverseproxy:v6
+            docker push megop/reverseproxy:v6
 workflows:
-  default:
+  udagram:
     jobs:
-      - lint-app
-      - build-docker:
-          requires: [lint-app]
+      - build
