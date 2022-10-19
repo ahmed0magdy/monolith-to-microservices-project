@@ -1,24 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-feed
+  name: udagram-api-feed
+  labels:
+    service: udagram-api-feed
 spec:
   selector:
     matchLabels:
-      run: backend-feed
+      service: udagram-api-feed
   replicas: 2
   template:
     metadata:
       labels:
-        run: backend-feed
+        service: udagram-api-feed
     spec:
       containers:
-      - name: backend-feed
-        image: docker.io/megop/udagram-api-feed:v1
-        ports:
-        - containerPort: 80
+      - name: udagram-api-feed
+        image: megop/udagram-api-feed:v1
         resources:
-          limits:
-            cpu: 500m
           requests:
-            cpu: 200m
+            memory: "1500Mi"
+            cpu: "500m"
+          limits:
+            memory: "2500Mi"
+            cpu: "750m"
+        envFrom:
+          - secretRef:
+              name: aws-secret
+          - secretRef:
+              name: env-secret
+          - configMapRef:
+              name: env-config

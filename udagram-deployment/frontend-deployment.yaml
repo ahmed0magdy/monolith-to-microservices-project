@@ -1,24 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: udagram-frontend
+  labels:
+    service: udagram-frontend
 spec:
   selector:
     matchLabels:
-      run: frontend
+      service: udagram-frontend
   replicas: 2
   template:
     metadata:
       labels:
-        run: frontend
+        service: udagram-frontend
     spec:
       containers:
-      - name: frontend
-        image: docker.io/megop/udagram-frontend:v1
-        ports: 
+      - name: udagram-frontend
+        image: megop/udagram-frontend:v1
+        ports:
         - containerPort: 80
         resources:
           limits:
-            cpu: 500m
+            cpu: "500m"
           requests:
-            cpu: 200m
+            cpu: "250m"
+        envFrom:
+          - secretRef:
+              name: aws-secret
+          - secretRef:
+              name: env-secret
+          - configMapRef:
+              name: env-config
