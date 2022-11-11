@@ -16,8 +16,8 @@ jobs:
             docker push megop/udagram-api-feed:v6
             docker tag udagram-api-user megop/udagram-api-user:v6
             docker push megop/udagram-api-user:v6
-            docker tag udagram-frontend megop/udagram-frontend:v6
-            docker push megop/udagram-frontend:v6
+            docker tag udagram-frontend megop/udagram-frontend:v7
+            docker push megop/udagram-frontend:v7
             docker tag reverseproxy megop/reverseproxy:v6
             docker push megop/reverseproxy:v6
 workflows:
